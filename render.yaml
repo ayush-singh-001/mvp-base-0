@@ -1,3 +1,13 @@
+# render.yaml - Blueprint Deployment Configuration
+#
+# This file is for automated Blueprint deployment on Render.com
+# For manual service deployment, ignore this file and follow the manual steps in docs/RENDER_DEPLOY.md
+#
+# To use Blueprint deployment:
+# 1. Create "New +" → "Blueprint" in Render dashboard
+# 2. Connect repository and select this render.yaml file
+# 3. Configure environment variables in Render dashboard
+#
 services:
   # Backend API Service
   - type: web
