@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run security-audit && node server.js",
+    "start": "node server.js",
+    "start:secure": "npm run security-audit && node server.js",
     "dev": "node --watch server.js",
     "test": "jest --forceExit --detectOpenHandles",
     "security-audit": "npm audit",
-    "security-fix": "npm audit fix"
+    "security-fix": "npm audit fix",
+    "build": "npm run security-audit"
   },
   "keywords": [],
   "author": "",

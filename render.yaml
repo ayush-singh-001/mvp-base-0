@@ -13,7 +13,7 @@ services:
   - type: web
     name: docverify-backend
     runtime: node
-    buildCommand: cd verifier-backend && npm ci
+    buildCommand: cd verifier-backend && npm ci && npm run build
     startCommand: cd verifier-backend && npm start
     plan: starter
     region: oregon
