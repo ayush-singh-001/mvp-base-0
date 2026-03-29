@@ -21,6 +21,11 @@ const logger                              = require('./lib/logger');
 
 const app = express();
 
+// --- Trust Proxy Configuration -----------------------------------------------
+// Enable trust proxy when running behind reverse proxies (Render, Heroku, etc.)
+// This allows Express to correctly read X-Forwarded-* headers for rate limiting
+app.set('trust proxy', true);
+
 // --- Security Headers --------------------------------------------------------
 app.use(helmet({
   crossOriginEmbedderPolicy: false, // Needed for IPFS integration
@@ -179,7 +184,7 @@ app.post('/api/analyze', analyzeLimiter, upload.single('file'), validateFileUplo
       { docHash },
       { docHash, fileName, aiScore: aiResult.score, aiProvider: aiResult.provider,
         aiDetails: aiResult.details, isAuthentic, ipfsCid },
-      { upsert: true, new: true }
+      { upsert: true, returnDocument: 'after' }
     );
 
     res.json({ success: true, docHash, aiScore: aiResult.score, aiProvider: aiResult.provider, ipfsCid });
