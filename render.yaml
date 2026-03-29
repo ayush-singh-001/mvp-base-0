@@ -16,9 +16,7 @@ services:
       - key: PORT
         value: 5000
       - key: MONGO_URI
-        fromDatabase:
-          name: docverify-mongodb
-          property: connectionString
+        sync: false
       - key: JWT_SECRET
         generateValue: true
       - key: ADMIN_USERNAME
@@ -109,10 +107,3 @@ services:
       - type: rewrite
         source: /*
         destination: /index.html
-
-databases:
-  - name: docverify-mongodb
-    databaseName: docverifier
-    user: docverify_user
-    plan: starter
-    region: oregon
