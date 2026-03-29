@@ -1,0 +1,110 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Environment variables
+.env
+.env.example
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS
+Thumbs.db
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Build outputs
+build/
+dist/
+out/
+
+# Hardhat
+hardhat/artifacts/
+hardhat/cache/
+hardhat/typechain-types/
+hardhat/node_modules/
+
+# Go binaries
+*.o
+*.a
+*.so
+*.dylib
+bin/
+vendor/bin/
+fabric/bin/
+*.exe
+*.dll
+*.so
+
+# Node.js
+verifier-backend/node_modules/
+verifier-client/node_modules/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# React
+verifier-client/build/
+verifier-client/.env.local
+verifier-client/.env.development.local
+verifier-client/.env.test.local
+verifier-client/.env.production.local
+
+# Fabric
+fabric/crypto-config/
+fabric/channel-config/*.block
+fabric/.docker/
+fabric/bin/
+fabric/builders/ccaas/bin/
+
+# Hyperledger Fabric chaincode
+fabric/chaincode/*/vendor/
+fabric/chaincode/*/*.pb.go
+fabric/chaincode/*/bin/
+
+# Certificates and crypto
+*.pem
+*.crt
+*.key
+*.csr
+
+# Temporary files
+*.tmp
+*.bak
+.DS_Store
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# Testing
+coverage/
+.nyc_output/
+
+# IDE generated files
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Local data
+mongo-data/
+postgres-data/
+
+docs/

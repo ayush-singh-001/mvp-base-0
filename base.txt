@@ -1,0 +1,29 @@
+1. Project Overview: Develops a Blockchain-Based Digital Content Authenticity and Verification System using hybrid DLT (Ethereum Sepolia Testnet for public verification, Hyperledger Fabric for private workflows) to create an immutable root of trust for digital media and documents, addressing the "crisis of authenticity" from GenAI-driven deepfakes and fraud.
+
+2. Motivation: Driven by industrialized digital fraud (deepfake cases up 10x from 2022-2023, GenAI market growing 560% to $442B by 2031), failure of centralized trust (e.g., Manav Bharti University's 36,000 fake degrees), economic losses (e.g., $25M Hong Kong deepfake scam), and tech maturity (Ethereum upgrades, AI proliferation).
+
+3. Key Threats: Surge in synthetic media (3,000% deepfake fraud in 2023), academic credential forgery ($21B diploma mill industry), vulnerabilities in centralized databases (single point of failure, internal tampering), and lack of instant, tamper-proof verification.
+
+4. Literature Review Highlights: Analyzes C2PA (provenance metadata via PKI, vulnerable to stripping/compromise) and W3C Verifiable Credentials (secure format but lacks immutable storage); compares Ethereum (15 TPS, high trust, variable fees) vs. Hyperledger Fabric (2,000 TPS, low latency, privacy-focused).
+
+5. Gap Analysis: Addresses C2PA's PKI root of trust deficit, scalability-privacy paradox in blockchains, "Garbage In, Garbage Out" (GIGO) loophole allowing fake content anchoring, and legal disconnect (e.g., Indian Evidence Act Section 65B requirements for electronic admissibility).
+
+6. Problem Statement: Tackles centralized architecture vulnerabilities (SPOF), mutability of standard databases (easy alterations without detection), GIGO from unverified uploads, and procedural friction (slow manual checks, non-compliance with legal standards).
+
+7. Objectives: Implement SHA-256 hashing for immutable fingerprints; develop dual-blockchain environments for public/private use; build hybrid "Off-Chain Data, On-Chain Hash" architecture with MongoDB for scalability and privacy (GDPR compliance).
+
+8. System Architecture: Three layers—Presentation (HTML/CSS/JS with local hashing via Web3.js/Ethers.js), Application (Node.js/Express backend with AI microservice), Data (MongoDB off-chain for metadata/media + on-chain hashes for immutability).
+
+9. Core Technologies: Blockchain: Ethereum (Solidity smart contracts), Hyperledger Fabric (Go Chaincode); Cryptography: SHA-256; AI: Eden AI/Reality Defender for deepfake detection; Database: MongoDB Atlas; Frontend: React/JS with MetaMask; Infrastructure: Docker for Fabric.
+
+10. Issuance Workflow: Upload file, compute local SHA-256 hash, AI veracity check (halt if fake score >80%), store metadata/media in MongoDB, anchor hash on blockchain via signed transaction (Ethereum or Fabric).
+
+11. Verification Workflow: Upload suspect file, compute local hash, query blockchain for match; return "Authentic" with details if matched, "Invalid/Tampered" if not (instant boolean result).
+
+12. Blockchain Strategy: Ethereum for universal verifiability (gas-optimized via event logs); Fabric for high-throughput privacy (Private Data Collections, execute-order-validate); hybrid avoids bloat and ensures cost-efficiency.
+
+13. AI and Cryptographic Components: AI pre-verification filters fakes before anchoring; SHA-256 ensures avalanche effect for tamper detection; integrates with standards like C2PA/VC but shifts trust to decentralized ledger.
+
+14. Legal and Performance Features: Generates Section 65B-compliant verification logs (issuer-linked hashes); optimizes Ethereum fees post-Dencun (~$0.34/tx); Fabric achieves sub-second latency; supports selective disclosure and revocation.
+
+15. Contributions: Provides decentralized, scalable verification mitigating fraud/misinformation; bridges public/private blockchains; adds AI gate against GIGO; ensures legal admissibility; comparative analysis of DLT performance.

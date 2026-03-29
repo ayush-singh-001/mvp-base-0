@@ -1,0 +1,19 @@
+# crypto-config.yaml – cryptogen configuration for DocVerifier Fabric network
+# Generates TLS and signing certificates for all network participants.
+# Run: cryptogen generate --config=./crypto-config.yaml --output=./crypto-config
+
+OrdererOrgs:
+  - Name: Orderer
+    Domain: example.com
+    EnableNodeOUs: true
+    Specs:
+      - Hostname: orderer
+
+PeerOrgs:
+  - Name: Org1
+    Domain: org1.example.com
+    EnableNodeOUs: true
+    Template:
+      Count: 1          # peer0
+    Users:
+      Count: 1          # User1 (in addition to the implied Admin)

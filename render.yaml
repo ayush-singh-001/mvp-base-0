@@ -1,0 +1,118 @@
+services:
+  # Backend API Service
+  - type: web
+    name: docverify-backend
+    runtime: node
+    buildCommand: cd verifier-backend && npm ci
+    startCommand: cd verifier-backend && npm start
+    plan: starter
+    region: oregon
+    branch: master
+    rootDir: ./
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: MONGO_URI
+        fromDatabase:
+          name: docverify-mongodb
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_USERNAME
+        value: admin
+      - key: ADMIN_PASSWORD
+        generateValue: true
+      - key: CORS_ORIGINS
+        sync: false
+      - key: AI_ENGINE
+        value: eden_ai
+      - key: AI_API_KEY
+        sync: false
+      - key: AI_PROVIDER
+        value: winstonai
+      - key: AI_BLOCK_THRESHOLD
+        value: 80
+      - key: AI_THRESHOLD_IMAGE
+        value: 80
+      - key: AI_THRESHOLD_VIDEO
+        value: 60
+      - key: AI_THRESHOLD_TEXT
+        value: 70
+      - key: PINATA_API_KEY
+        sync: false
+      - key: PINATA_SECRET_KEY
+        sync: false
+      - key: JWT_EXPIRES_IN
+        value: 8h
+      - key: FABRIC_ENABLED
+        value: false
+
+  # Frontend Static Site
+  - type: web
+    name: docverify-frontend
+    runtime: static
+    buildCommand: cd verifier-client && npm ci && npm run build
+    staticPublishPath: ./verifier-client/build
+    plan: starter
+    region: oregon
+    branch: master
+    rootDir: ./
+    buildFilter:
+      paths:
+        - verifier-client/**
+    envVars:
+      - key: REACT_APP_API_URL
+        fromService:
+          type: web
+          name: docverify-backend
+          property: host
+      - key: REACT_APP_CONTRACT_ADDRESS
+        value: 0x83ed6653dB8c25Bacebf6B3110e352bfE6F9196c
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: X-XSS-Protection
+        value: "1; mode=block"
+      - path: /*.js
+        name: Cache-Control
+        value: "public, max-age=31536000, immutable"
+      - path: /*.css
+        name: Cache-Control
+        value: "public, max-age=31536000, immutable"
+      - path: /*.png
+        name: Cache-Control
+        value: "public, max-age=31536000, immutable"
+      - path: /*.jpg
+        name: Cache-Control
+        value: "public, max-age=31536000, immutable"
+      - path: /*.jpeg
+        name: Cache-Control
+        value: "public, max-age=31536000, immutable"
+      - path: /*.gif
+        name: Cache-Control
+        value: "public, max-age=31536000, immutable"
+      - path: /*.svg
+        name: Cache-Control
+        value: "public, max-age=31536000, immutable"
+      - path: /*.ico
+        name: Cache-Control
+        value: "public, max-age=31536000, immutable"
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
+databases:
+  - name: docverify-mongodb
+    databaseName: docverifier
+    user: docverify_user
+    plan: starter
+    region: oregon

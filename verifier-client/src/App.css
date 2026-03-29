@@ -1,0 +1,599 @@
+/* ─── Reset & Base ───────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #0d1117;
+  color: #e6edf3;
+  min-height: 100vh;
+}
+
+/* ─── App Shell ─────────────────────────────────────────────────────────── */
+.app-container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 16px 64px;
+}
+
+/* ─── Header ────────────────────────────────────────────────────────────── */
+.app-header {
+  padding: 48px 0 32px;
+  text-align: center;
+}
+
+.app-title {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: #58a6ff;
+}
+
+.app-subtitle {
+  margin-top: 6px;
+  font-size: 0.95rem;
+  color: #8b949e;
+}
+
+/* ─── Tab Bar ───────────────────────────────────────────────────────────── */
+.tab-bar {
+  display: flex;
+  border-bottom: 1px solid #30363d;
+  margin-bottom: 28px;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 12px 20px;
+  font-size: 0.95rem;
+  color: #8b949e;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+  margin-bottom: -1px;
+  /* NavLink renders as <a> — reset link defaults */
+  text-decoration: none;
+  display: inline-block;
+  font-family: inherit;
+}
+
+.tab-btn:hover {
+  color: #e6edf3;
+}
+
+.tab-active {
+  color: #58a6ff;
+  border-bottom-color: #58a6ff;
+}
+
+/* ─── Panel ─────────────────────────────────────────────────────────────── */
+.panel {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 10px;
+  padding: 28px 28px 24px;
+}
+
+.panel h2 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.panel-description {
+  font-size: 0.875rem;
+  color: #8b949e;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+/* ─── File Input Row ────────────────────────────────────────────────────── */
+.file-input-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.file-label {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.875rem;
+  color: #8b949e;
+  cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  transition: border-color 0.15s;
+}
+
+.file-label:hover {
+  border-color: #58a6ff;
+  color: #e6edf3;
+}
+
+.file-label input[type="file"] {
+  display: none;
+}
+
+/* ─── Buttons ───────────────────────────────────────────────────────────── */
+.btn {
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+  white-space: nowrap;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn:not(:disabled):active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  background: #238636;
+  color: #fff;
+}
+
+.btn-primary:not(:disabled):hover {
+  background: #2ea043;
+}
+
+.btn-secondary {
+  background: #1f6feb;
+  color: #fff;
+}
+
+.btn-secondary:not(:disabled):hover {
+  background: #388bfd;
+}
+
+/* ─── Status Box ────────────────────────────────────────────────────────── */
+.status-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 20px;
+  padding: 14px 16px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+.status-analyzing .status-dot { background: #e3b341; animation: pulse 1s infinite; }
+.status-anchoring .status-dot { background: #58a6ff; animation: pulse 1s infinite; }
+.status-waiting   .status-dot { background: #58a6ff; animation: pulse 1s infinite; }
+.status-success   .status-dot { background: #3fb950; }
+.status-error     .status-dot { background: #f85149; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+.status-analyzing { background: rgba(227, 179, 65, 0.08); border: 1px solid rgba(227, 179, 65, 0.25); }
+.status-anchoring { background: rgba(88, 166, 255, 0.08); border: 1px solid rgba(88, 166, 255, 0.25); }
+.status-waiting   { background: rgba(88, 166, 255, 0.08); border: 1px solid rgba(88, 166, 255, 0.25); }
+.status-success   { background: rgba(63, 185, 80, 0.08);  border: 1px solid rgba(63, 185, 80, 0.25); }
+.status-error     { background: rgba(248, 81, 73, 0.08);  border: 1px solid rgba(248, 81, 73, 0.25); }
+
+.status-message {
+  color: #e6edf3;
+}
+
+.status-detail {
+  margin-top: 6px;
+  color: #8b949e;
+}
+
+.status-detail span {
+  color: #8b949e;
+  margin-right: 6px;
+}
+
+.status-detail code {
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.8rem;
+  background: #0d1117;
+  padding: 2px 6px;
+  border-radius: 4px;
+  word-break: break-all;
+}
+
+.status-detail a {
+  color: #58a6ff;
+  text-decoration: none;
+}
+
+.status-detail a:hover {
+  text-decoration: underline;
+}
+
+/* ─── Result Card ───────────────────────────────────────────────────────── */
+.result-card {
+  margin-top: 24px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #30363d;
+}
+
+.result-authentic { border-color: rgba(63, 185, 80, 0.4); }
+.result-revoked   { border-color: rgba(210, 153, 34, 0.4); }
+.result-tampered  { border-color: rgba(248, 81, 73, 0.4); }
+
+.result-badge {
+  padding: 12px 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.result-authentic .result-badge {
+  background: rgba(63, 185, 80, 0.12);
+  color: #3fb950;
+}
+
+.result-revoked .result-badge {
+  background: rgba(210, 153, 34, 0.12);
+  color: #e3b341;
+}
+
+.result-tampered .result-badge {
+  background: rgba(248, 81, 73, 0.12);
+  color: #f85149;
+}
+
+.result-body {
+  padding: 20px;
+  background: #161b22;
+}
+
+.result-row {
+  display: flex;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid #21262d;
+  font-size: 0.875rem;
+}
+
+.result-row:last-child {
+  border-bottom: none;
+}
+
+.result-label {
+  width: 120px;
+  flex-shrink: 0;
+  color: #8b949e;
+  padding-top: 1px;
+}
+
+.result-value {
+  color: #e6edf3;
+  word-break: break-all;
+}
+
+.result-value code {
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.78rem;
+  background: #0d1117;
+  padding: 2px 6px;
+  border-radius: 4px;
+  word-break: break-all;
+}
+
+.result-value a {
+  color: #58a6ff;
+  text-decoration: none;
+}
+
+.result-value a:hover {
+  text-decoration: underline;
+}
+
+.result-divider {
+  height: 1px;
+  background: #30363d;
+  margin: 12px 0;
+}
+
+.result-section-title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #8b949e;
+  margin-bottom: 4px;
+}
+
+.result-not-found {
+  padding: 8px 0 0;
+  font-size: 0.875rem;
+  color: #8b949e;
+  line-height: 1.6;
+}
+
+/* ─── Copy Button ───────────────────────────────────────────────────────── */
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  padding: 1px 6px;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  background: #21262d;
+  color: #8b949e;
+  border: 1px solid #30363d;
+  border-radius: 4px;
+  cursor: pointer;
+  vertical-align: middle;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+  user-select: none;
+}
+
+.copy-btn:hover {
+  color: #e6edf3;
+  border-color: #58a6ff;
+  background: #161b22;
+}
+
+.copy-btn-copied {
+  color: #3fb950;
+  border-color: rgba(63, 185, 80, 0.4);
+  background: rgba(63, 185, 80, 0.08);
+}
+/* ─── Revoke Panel ──────────────────────────────────────────────────────── */
+.toggle-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.toggle-btn {
+  background: #1c2128;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 7px 16px;
+  font-size: 0.85rem;
+  color: #8b949e;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.toggle-btn:hover {
+  color: #e6edf3;
+  border-color: #58a6ff;
+}
+
+.toggle-active {
+  color: #58a6ff;
+  border-color: #58a6ff;
+  background: rgba(88, 166, 255, 0.08);
+}
+
+.hash-input-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.hash-input {
+  flex: 1;
+  min-width: 0;
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 0.82rem;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  color: #e6edf3;
+  transition: border-color 0.15s;
+  outline: none;
+}
+
+.hash-input:focus {
+  border-color: #58a6ff;
+}
+
+.hash-input::placeholder {
+  color: #484f58;
+}
+
+.revoke-confirm-box {
+  margin-top: 20px;
+  padding: 18px 20px;
+  background: rgba(210, 153, 34, 0.06);
+  border: 1px solid rgba(210, 153, 34, 0.3);
+  border-radius: 8px;
+}
+
+.revoke-confirm-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #e3b341;
+  margin-bottom: 12px;
+}
+
+.revoke-warning {
+  font-size: 0.82rem;
+  color: #e3b341;
+  margin: 14px 0;
+  line-height: 1.5;
+}
+
+.btn-danger {
+  background: #b62324;
+  color: #fff;
+}
+
+.btn-danger:not(:disabled):hover {
+  background: #cf2525;
+}
+
+/* ─── AI Details ─────────────────────────────────────────────────────────── */
+.ai-details-toggle {
+  background: none;
+  border: none;
+  color: #58a6ff;
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 4px 0;
+  margin-top: 4px;
+  text-align: left;
+}
+
+.ai-details-toggle:hover {
+  text-decoration: underline;
+}
+
+.ai-details-box {
+  margin-top: 4px;
+}
+
+.ai-details-pre {
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.75rem;
+  background: #0d1117;
+  color: #8b949e;
+  padding: 8px 10px;
+  border-radius: 4px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+/* ─── AI Badge ───────────────────────────────────────────────────────────── */
+.ai-badge {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 1px 7px;
+  border-radius: 20px;
+  vertical-align: middle;
+  letter-spacing: 0.02em;
+}
+
+.ai-badge-live {
+  color: #3fb950;
+  background: rgba(63, 185, 80, 0.1);
+  border: 1px solid rgba(63, 185, 80, 0.3);
+}
+
+.ai-badge-mock {
+  color: #8b949e;
+  background: rgba(139, 148, 158, 0.1);
+  border: 1px solid rgba(139, 148, 158, 0.25);
+}
+/* ─── Footer ────────────────────────────────────────────────────────────── */
+.app-footer {
+  margin-top: 48px;
+  text-align: center;
+  font-size: 0.78rem;
+  color: #484f58;
+}
+
+/* ─── Network toggle ─────────────────────────────────────────────────────── */
+.network-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.network-toggle-label {
+  font-size: 0.8rem;
+  color: #8b949e;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+.network-toggle {
+  display: inline-flex;
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 20px;
+  padding: 2px;
+  gap: 2px;
+}
+
+.network-btn {
+  padding: 5px 16px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  background: transparent;
+  color: #8b949e;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.network-btn:hover {
+  background: rgba(48, 54, 61, 0.7);
+  color: #c9d1d9;
+}
+
+.network-btn.network-active {
+  background: #21262d;
+  color: #58a6ff;
+  border: 1px solid #388bfd40;
+}
+
+/* Fabric active state gets a purple tint to differentiate from Ethereum blue */
+.network-btn.network-active:last-child {
+  color: #d2a8ff;
+  border-color: #a371f740;
+}
+
+/* ─── Responsive ────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .file-input-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .result-row {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .result-label {
+    width: auto;
+  }
+}
